@@ -11,4 +11,4 @@ npx create-next-app@latest <project-name>
 1. shadcn-ui
 2. react-icons
 3. prisma
-4.
+4. @auth/prisma-adapter
