@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-import { REGISTER } from '@/actions/register';
+import { register } from '@/actions/register';
 import { CardWraper } from '@/components/auth/card-wraper';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
@@ -41,7 +41,7 @@ export const RegisterForm = () => {
 		setSuccess('');
 
 		startTransition(() => {
-			REGISTER(values).then((data) => {
+			register(values).then((data) => {
 				setError(data.error);
 				setSuccess(data.success);
 			});
