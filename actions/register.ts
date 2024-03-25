@@ -1,38 +1,38 @@
-"use server";
+'use server';
 
-import { hashSync } from "bcryptjs";
-import * as z from "zod";
+import { hashSync } from 'bcryptjs';
+import * as z from 'zod';
 
-import { db } from "@/lib/db";
-import { RegisterSchema } from "@/schemas";
-import { getUserByEmail } from "@/data/user";
+import { getUserByEmail } from '@/data/user';
+import { db } from '@/lib/db';
+import { RegisterSchema } from '@/schemas';
 
-export const REGISTER = async (values: z.infer<typeof RegisterSchema>) => {
-  const validatedFields = RegisterSchema.safeParse(values);
+export const register = async (values: z.infer<typeof RegisterSchema>) => {
+	const validatedFields = RegisterSchema.safeParse(values);
 
-  if (!validatedFields.success) {
-    return { error: "Invalid fields!" };
-  }
+	if (!validatedFields.success) {
+		return { error: 'Invalid fields!' };
+	}
 
-  const { email, password, name } = validatedFields.data;
+	const { email, password, name } = validatedFields.data;
 
-  const hashedPassword = await hashSync(password, 12);
+	const hashedPassword = await hashSync(password, 12);
 
-  const existingUser = await getUserByEmail(email);
+	const existingUser = await getUserByEmail(email);
 
-  if (existingUser) {
-    return { error: "Email already in use!" };
-  }
+	if (existingUser) {
+		return { error: 'Email already in use!' };
+	}
 
-  await db.user.create({
-    data: {
-      name,
-      email,
-      password: hashedPassword,
-    },
-  });
+	await db.user.create({
+		data: {
+			name,
+			email,
+			password: hashedPassword,
+		},
+	});
 
-  //TODO: send verification token email
+	//TODO: send verification token email
 
-  return { success: "User created!" };
+	return { success: 'User created!' };
 };

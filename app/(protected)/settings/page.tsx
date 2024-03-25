@@ -1,19 +1,20 @@
 import { auth, signOut } from '@/auth';
+import { Button } from '@/components/ui/button';
 
 async function SettingsPage() {
 	const session = await auth();
+	console.log('[SETTINGS_PAGE-SESSION.USER.ID] - ', session?.user.id);
 	return (
-		<div>
+		<div className="h-full w-full flex flex-col items-center justify-center">
 			<form
 				action={async () => {
 					'use server';
 					await signOut();
 				}}
 			>
-				<button type="submit">Sign Out</button>
+				<Button type="submit">Sign Out</Button>
 			</form>
-
-			{JSON.stringify(session)}
+			<pre>{JSON.stringify(session, null, 2)}</pre>
 		</div>
 	);
 }
