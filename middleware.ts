@@ -19,6 +19,14 @@ export default auth((req) => {
 	const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
 	if (isApiAuthRoute) {
+		if (
+			nextUrl.pathname.startsWith('/api/auth/auth/') &&
+			nextUrl.searchParams.get('error')
+		) {
+			const url = nextUrl;
+			url.pathname = nextUrl.pathname.replace('/api/auth/', '');
+			return Response.redirect(url);
+		}
 		return;
 	}
 
@@ -30,7 +38,16 @@ export default auth((req) => {
 	}
 
 	if (!isLoggedIn && !isPublicRoute) {
-		return Response.redirect(new URL('/auth/login', nextUrl));
+		let callbackUrl = nextUrl.pathname;
+		if (nextUrl.search) {
+			callbackUrl += nextUrl.search;
+		}
+
+		const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+
+		return Response.redirect(
+			new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl)
+		);
 	}
 
 	return;
