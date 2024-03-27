@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 
 async function SettingsPage() {
 	const session = await auth();
-	console.log('[SETTINGS_PAGE-SESSION.USER.ID] - ', session?.user.id);
 	return (
 		<div className="h-full w-full flex flex-col items-center justify-center">
 			<form
