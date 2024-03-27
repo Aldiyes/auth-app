@@ -71,9 +71,6 @@ export const {
 				session.user.role = token.role;
 			}
 
-			console.log('[SESSION-TOKEN] - ', { SessionToken: token });
-			console.log('[SESSION-SESSION] - ', session);
-
 			return session;
 		},
 
@@ -89,8 +86,6 @@ export const {
 
 			token.role = existingUser.role;
 
-			console.log('[JWT-USER] - ', user);
-			console.log('[JWT-TOKEN] - ', token);
 			return token;
 		},
 	},
