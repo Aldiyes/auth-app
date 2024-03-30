@@ -3,15 +3,14 @@
 import { AuthError } from 'next-auth';
 import * as z from 'zod';
 
-import { LoginSchema } from '@/schemas';
-
 import { signIn } from '@/auth';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
+import { LoginSchema } from '@/schemas';
 
+import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation';
 import { getTwoFactorTokenByEmail } from '@/data/two-factor-token';
 import { getUserByEmail } from '@/data/user';
 
-import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation';
 import { db } from '@/lib/db';
 import { sendTwoFactorTokenEmail, sendVerificationEmail } from '@/lib/mail';
 import {

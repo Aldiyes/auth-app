@@ -1,5 +1,6 @@
-import { CardWraper } from '@/components/auth/card-wraper';
 import { AlertTriangleIcon } from 'lucide-react';
+
+import { CardWraper } from '@/components/auth/card-wraper';
 
 export const ErrorCard = () => {
 	return (
